@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>FTW Funeral Playbook — Phil Lady</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #080e16;
+  --bg2:    #0d1520;
+  --bg3:    #111d2c;
+  --bg4:    #16253a;
+  --line:   rgba(255,255,255,.07);
+  --line2:  rgba(255,255,255,.13);
+  --text:   #e8f0f8;
+  --muted:  #5a7a9a;
+  --dim:    #2a4060;
+  --g:      #00c45a;
+  --gd:     rgba(0,196,90,.12);
+  --gb:     rgba(0,196,90,.28);
+  --c1:     #3b8ef5;
+  --c2:     #9b6ff0;
+  --c3:     #f0a030;
+  --c4:     #22c78a;
+  --red:    #f05050;
+  --amb:    #f09030;
+  --purp:   #9b6ff0;
+  --hot:    #f09030;
+  --r:      10px;
+  --rs:     7px;
+  --nav-h:  62px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 100%; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── LAYOUT ──────────────────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* TOP BAR */
+.topbar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--line);
+  padding: 0 16px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  gap: 10px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pip {
+  width: 3px;
+  height: 26px;
+  background: var(--g);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.logo-words .l1 { font-size: 9px; color: var(--muted); letter-spacing: .15em; }
+.logo-words .l2 { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); line-height: 1; }
+.top-pills { display: flex; gap: 6px; }
+.tp {
+  background: var(--bg3);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 3px 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+.tp .v { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; }
+.tp .l { font-size: 9px; color: var(--muted); letter-spacing: .08em; }
+
+/* SCROLL AREA */
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* BOTTOM NAV */
+.bottom-nav {
+  background: var(--bg2);
+  border-top: 1px solid var(--line);
+  height: var(--nav-h);
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  transition: color .15s;
+  padding: 8px 2px;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+.nav-btn .icon { font-size: 18px; line-height: 1; }
+.nav-btn .label { font-size: 9px; letter-spacing: .05em; }
+.nav-btn.active { color: var(--g); }
+.nav-btn.active::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 20%; right: 20%;
+  height: 2px;
+  background: var(--g);
+  border-radius: 0 0 2px 2px;
+}
+
+/* ── SEARCH BAR ───────────────────────────────────────────── */
+.search-bar {
+  padding: 10px 14px 6px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+  border-bottom: 1px solid var(--line);
+}
+.search-inp {
+  flex: 1;
+  background: var(--bg3);
+  border: 1px solid var(--line);
+  border-radius: var(--rs);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  padding: 9px 12px;
+  outline: none;
+  min-width: 0;
+  -webkit-appearance: none;
+}
+.search-inp:focus { border-color: var(--gb); }
+.search-inp::placeholder { color: var(--muted); }
+
+/* Filter chips */
+.filters {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 8px 14px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.filters::-webkit-scrollbar { display: none; }
+.chip {
+  flex-shrink: 0;
+  font-size: 10px;
+  padding: 5px 11px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+  transition: all .12s;
+}
+.chip.on { color: #fff; border-color: transparent; }
+
+/* ── CARDS ────────────────────────────────────────────────── */
+.cards { display: flex; flex-direction: column; gap: 8px; padding: 10px 14px 14px; }
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .15s;
+  position: relative;
+}
+.card:active { background: var(--bg3); }
+
+.card-stripe { position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.card-body { padding: 13px 14px 12px 18px; }
+
+.card-tags { display: flex; gap: 5px; margin-bottom: 7px; flex-wrap: wrap; }
+.tag {
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  border: 1px solid;
+}
+.card-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+.card-addr { font-size: 11px; color: var(--muted); margin-bottom: 9px; }
+
+.plays { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
+.play {
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 8px;
+  border: 1px solid;
+  letter-spacing: .04em;
+}
+.card-foot { display: flex; align-items: center; gap: 10px; }
+.cphone { font-size: 12px; font-weight: 500; color: var(--g); text-decoration: none; }
+.cdm { font-size: 11px; color: var(--muted); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.door-snip {
+  margin-top: 9px;
+  font-size: 10px;
+  color: var(--g);
+  padding: 5px 10px;
+  background: var(--gd);
+  border-radius: 6px;
+  border-left: 2px solid var(--g);
+  line-height: 1.4;
+}
+
+/* ── DETAIL ───────────────────────────────────────────────── */
+.detail { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: var(--rs);
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  align-self: flex-start;
+}
+
+.det-hdr {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 16px;
+}
+.det-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  margin: 8px 0 4px;
+  line-height: 1.25;
+}
+.det-addr { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.det-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.det-field { background: var(--bg3); border-radius: var(--rs); padding: 9px 12px; }
+.det-lbl { font-size: 9px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 3px; }
+.det-val { font-size: 12px; color: var(--text); font-weight: 500; word-break: break-word; }
+.det-note {
+  background: var(--bg3);
+  border-left: 2px solid var(--c1);
+  border-radius: 0 var(--rs) var(--rs) 0;
+  padding: 9px 12px;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-top: 10px;
+}
+
+.sec {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.sec-lbl {
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 12px 15px 8px;
+}
+.sec-body { padding: 0 12px 12px; display: flex; flex-direction: column; gap: 6px; }
+
+.dm-row {
+  background: var(--bg3);
+  border-radius: var(--rs);
+  padding: 11px 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dm-info { flex: 1; min-width: 0; }
+.dm-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--text); }
+.dm-title { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.call-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 13px;
+  background: var(--gd);
+  border: 1px solid var(--gb);
+  border-radius: var(--rs);
+  color: var(--g);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.door-row {
+  background: var(--bg3);
+  border-radius: var(--rs);
+  padding: 11px 13px;
+  border-left: 2px solid var(--g);
+}
+.door-row.hot { border-left-color: var(--hot); }
+.door-info { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+.door-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.hot-tag {
+  font-size: 9px;
+  padding: 1px 6px;
+  background: rgba(240,144,48,.15);
+  color: var(--hot);
+  border: 1px solid rgba(240,144,48,.3);
+  border-radius: 8px;
+}
+.door-co { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.door-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.email-btn {
+  display: inline-flex;
+  padding: 7px 12px;
+  background: rgba(59,142,245,.1);
+  border: 1px solid rgba(59,142,245,.25);
+  border-radius: var(--rs);
+  color: var(--c1);
+  font-size: 11px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.opener-block {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--purp);
+  border-radius: 0 var(--r) var(--r) 0;
+  padding: 14px 15px;
+}
+.opener-lbl { font-size: 9px; color: var(--purp); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px; }
+.opener-text { font-size: 12px; color: var(--muted); line-height: 1.8; font-style: italic; }
+
+/* ── DOORS TAB ──────────────────────────────────────────────── */
+.doors-list { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; }
+.door-card {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 13px 15px;
+}
+.door-card-cat { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; margin-bottom: 4px; }
+.door-card-name { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+.door-card-co { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+.door-card-why { font-size: 11px; color: var(--muted); line-height: 1.7; font-style: italic; margin-bottom: 10px; }
+.door-card-foot { display: flex; gap: 7px; flex-wrap: wrap; }
+
+/* ── CORRIDORS TAB ────────────────────────────────────────────── */
+.cors { display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; }
+.cor-card { background: var(--bg2); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.cor-head { padding: 14px 16px 12px; }
+.cor-meta { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.cor-num { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; margin-bottom: 2px; }
+.cor-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; }
+.cor-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.cor-ct { text-align: right; }
+.cor-ct .big { font-family: 'Syne', sans-serif; font-size: 30px; font-weight: 800; line-height: 1; }
+.cor-ct .sm { font-size: 9px; color: var(--muted); letter-spacing: .08em; }
+.cor-route {
+  background: var(--bg3);
+  border-radius: var(--rs);
+  padding: 8px 12px;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.cor-stops { padding: 8px 12px 12px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 5px; }
+.stop-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--bg3);
+  border-radius: var(--rs);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.stop-row:active { background: var(--bg4); }
+.stop-n { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; min-width: 22px; }
+.stop-info { flex: 1; min-width: 0; }
+.stop-name { font-size: 12px; font-weight: 500; color: var(--text); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.stop-addr { font-size: 10px; color: var(--muted); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.stop-phone {
+  font-size: 11px;
+  color: var(--g);
+  text-decoration: none;
+  background: var(--gd);
+  border: 1px solid var(--gb);
+  border-radius: var(--rs);
+  padding: 6px 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.alf-block {
+  background: rgba(0,196,90,.05);
+  border: 1px solid var(--gb);
+  border-radius: var(--r);
+  padding: 15px;
+}
+.alf-lbl { font-size: 9px; color: var(--g); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px; }
+.alf-body { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+.alf-ask { background: var(--bg3); border-radius: var(--rs); padding: 10px 13px; font-size: 11px; color: var(--muted); font-style: italic; line-height: 1.75; margin-bottom: 12px; }
+.alf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.alf-item { background: var(--bg3); border-radius: var(--rs); padding: 8px 10px; display: flex; justify-content: space-between; align-items: center; gap: 6px; flex-wrap: wrap; }
+.alf-name { font-size: 11px; color: var(--muted); }
+.alf-phone { font-size: 11px; color: var(--g); text-decoration: none; font-weight: 500; }
+
+/* ── GUIDE TABS ────────────────────────────────────────────── */
+.guide { padding: 12px 14px; display: flex; flex-direction: column; gap: 12px; }
+
+.g-intro {
+  border-radius: var(--r);
+  padding: 15px 16px;
+  font-size: 12px;
+  line-height: 1.8;
+  border: 1px solid;
+}
+
+.g-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.g-stat { background: var(--bg2); border: 1px solid var(--line); border-radius: var(--r); padding: 13px 14px; }
+.g-stat .gv { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+.g-stat .gl { font-size: 9px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+
+.g-sec { background: var(--bg2); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.g-sec-head { padding: 14px 16px; border-bottom: 1px solid var(--line); display: flex; align-items: flex-start; gap: 12px; }
+.g-sec-num { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; line-height: 1; min-width: 28px; flex-shrink: 0; }
+.g-sec-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); }
+.g-sec-sub { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.g-sec-body { padding: 13px 14px; display: flex; flex-direction: column; gap: 10px; }
+
+.play-card { border-radius: var(--rs); padding: 13px 14px; border: 1px solid; }
+.play-card-top { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+.play-card-icon { font-size: 20px; width: 30px; text-align: center; flex-shrink: 0; line-height: 1.2; }
+.play-card-name { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; line-height: 1.2; }
+.play-card-who { font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.play-card-body { font-size: 11px; color: var(--muted); line-height: 1.8; margin-bottom: 10px; }
+.play-card-targets { display: flex; gap: 5px; flex-wrap: wrap; }
+.pt { font-size: 9px; padding: 3px 8px; border-radius: 8px; border: 1px solid; letter-spacing: .04em; }
+
+.steps { display: flex; flex-direction: column; gap: 7px; }
+.step { display: flex; gap: 12px; background: var(--bg3); border-radius: var(--rs); padding: 12px 13px; }
+.step-num { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; min-width: 22px; line-height: 1.2; flex-shrink: 0; }
+.step-title { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1.4; }
+.step-body { font-size: 11px; color: var(--muted); line-height: 1.75; }
+.step-tip { display: inline-block; margin-top: 8px; font-size: 10px; padding: 4px 10px; background: var(--gd); border: 1px solid var(--gb); border-radius: 8px; color: var(--g); font-style: italic; line-height: 1.5; }
+
+.insight { border-radius: var(--rs); padding: 12px 14px; font-size: 11px; line-height: 1.8; border: 1px solid; }
+
+.cert-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+.cert-cell { background: var(--bg3); border-radius: var(--rs); padding: 10px 8px; text-align: center; }
+.cert-name { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: var(--g); }
+.cert-desc { font-size: 9px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+
+.svc-row { display: flex; gap: 0; background: var(--bg3); border-radius: var(--rs); padding: 12px 14px; border-left: 3px solid; }
+.svc-row-body { flex: 1; }
+.svc-name { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.svc-desc { font-size: 11px; color: var(--muted); line-height: 1.7; }
+
+.pricing-block { overflow: hidden; border-radius: var(--rs); border: 1px solid var(--line); }
+.pricing-hdr { background: var(--bg4); font-size: 9px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; padding: 7px 12px; }
+.pricing-row { padding: 9px 12px; border-top: 1px solid var(--line); font-size: 11px; }
+.pricing-row.hi { background: rgba(0,196,90,.05); }
+.pr-name { color: var(--text); font-weight: 500; margin-bottom: 2px; }
+.pr-vals { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.pr-val { color: var(--g); font-weight: 500; font-family: 'Syne', sans-serif; font-size: 12px; }
+.pr-note { color: var(--muted); font-size: 10px; }
+
+.offer-cards { display: flex; flex-direction: column; gap: 8px; }
+.offer-card { background: var(--bg3); border-radius: var(--rs); padding: 13px 14px; border: 1px solid var(--line); border-bottom: 2px solid; }
+.offer-num { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+.offer-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 5px; }
+.offer-body { font-size: 11px; color: var(--muted); line-height: 1.75; }
+
+.opener-card { background: var(--bg3); border-radius: var(--rs); padding: 12px 14px; border-left: 3px solid var(--purp); }
+.opener-who { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.opener-lbl { font-size: 9px; color: var(--purp); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 5px; }
+.opener-txt { font-size: 11px; color: var(--muted); line-height: 1.8; font-style: italic; }
+
+/* prog cards */
+.prog-card { background: var(--bg3); border-radius: var(--rs); padding: 13px 14px; border: 1px solid var(--line); }
+.prog-lbl { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; margin-bottom: 8px; }
+.prog-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.prog-body { font-size: 11px; color: var(--muted); line-height: 1.8; margin-bottom: 8px; }
+.prog-foot { font-size: 10px; color: var(--muted); }
+
+.empty { padding: 60px 20px; text-align: center; color: var(--muted); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 2px; }
+
+.fade-in { animation: fi .15s ease; }
+@keyframes fi { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* DESKTOP — show filters in sidebar style */
+@media (min-width: 760px) {
+  .app { flex-direction: column; }
+  .bottom-nav { display: none; }
+  .topbar { height: 54px; }
+  .top-pills .tp:last-child { display: flex; }
+
+  .app-inner { display: grid; grid-template-columns: 200px 1fr; flex: 1; overflow: hidden; }
+  .sidebar {
+    background: var(--bg2);
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-shrink: 0;
+  }
+  .sb-section { padding: 14px 10px 8px; }
+  .sb-label { font-size: 9px; color: var(--muted); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 6px; padding: 0 4px; }
+  .sb-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 10px;
+    border-radius: var(--rs);
+    cursor: pointer;
+    margin-bottom: 2px;
+    font-size: 12px;
+    color: var(--muted);
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    transition: all .13s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sb-btn:hover { background: var(--bg3); color: var(--text); }
+  .sb-btn.active { background: var(--bg4); color: var(--text); }
+  .sb-btn.active .sb-dot { background: var(--g); }
+  .sb-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dim); flex-shrink: 0; }
+  .sb-badge { margin-left: auto; font-size: 10px; padding: 1px 6px; border-radius: 10px; }
+  .sb-div { height: 1px; background: var(--line); margin: 8px 10px; }
+  .sb-search { padding: 10px 10px 4px; }
+  .sb-search-inp {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--line);
+    border-radius: var(--rs);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 7px 10px;
+    outline: none;
+  }
+  .sb-search-inp:focus { border-color: var(--gb); }
+  .sb-footer { margin-top: auto; padding: 12px; border-top: 1px solid var(--line); font-size: 10px; color: var(--muted); line-height: 1.6; }
+
+  /* hide mobile-only elements on desktop */
+  .search-bar, .filters, .mobile-only { display: none; }
+
+  .panel-scroll { overflow-y: auto; overflow-x: hidden; flex: 1; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); }
+}
+@media (max-width: 759px) {
+  .app-inner { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .sidebar { display: none; }
+  .panel-scroll { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+  .tp.hide-mob { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="logo">
+      <div class="pip"></div>
+      <div class="logo-words">
+        <div class="l1">SERVPRO · FTW</div>
+        <div class="l2">Funeral Playbook</div>
+      </div>
+    </div>
+    <div class="top-pills">
+      <div class="tp hide-mob"><span class="v" style="color:var(--c2)">9</span><span class="l">SCI</span></div>
+      <div class="tp hide-mob"><span class="v" style="color:var(--red)">4</span><span class="l">High</span></div>
+      <div class="tp"><span class="v" style="color:var(--g)">16</span><span class="l">Homes</span></div>
+    </div>
+  </div>
+
+  <div class="app-inner">
+    <!-- DESKTOP SIDEBAR -->
+    <div class="sidebar">
+      <div class="sb-search">
+        <input class="sb-search-inp" id="sb-search" type="text" placeholder="Search…">
+      </div>
+      <div class="sb-section">
+        <div class="sb-label">Playbook</div>
+        <button class="sb-btn" data-tab="strategy"><span class="sb-dot" style="background:#f59e0b"></span>How to Win<span class="sb-badge" style="background:rgba(245,158,11,.15);color:#f59e0b">Guide</span></button>
+        <button class="sb-btn" data-tab="pitch"><span class="sb-dot" style="background:var(--purp)"></span>The Pitch<span class="sb-badge" style="background:rgba(155,111,240,.15);color:var(--purp)">SOQ</span></button>
+      </div>
+      <div class="sb-div"></div>
+      <div class="sb-section">
+        <div class="sb-label">Field Tools</div>
+        <button class="sb-btn active" data-tab="homes"><span class="sb-dot"></span>Funeral Homes<span class="sb-badge" id="sb-homes-ct" style="background:var(--bg4);color:var(--muted)">16</span></button>
+        <button class="sb-btn" data-tab="doors"><span class="sb-dot"></span>Door Openers<span class="sb-badge" style="background:var(--gd);color:var(--g)">15</span></button>
+        <button class="sb-btn" data-tab="routes"><span class="sb-dot"></span>Corridors<span class="sb-badge" style="background:var(--bg4);color:var(--muted)">4</span></button>
+      </div>
+      <div class="sb-div"></div>
+      <div class="sb-section">
+        <div class="sb-label">Priority</div>
+        <button class="sb-btn filt-pri active" data-pri="ALL"><span class="sb-dot"></span>All priorities</button>
+        <button class="sb-btn filt-pri" data-pri="SCI"><span class="sb-dot" style="background:var(--purp)"></span>SCI Portfolio</button>
+        <button class="sb-btn filt-pri" data-pri="HIGH"><span class="sb-dot" style="background:var(--red)"></span>High Priority</button>
+        <button class="sb-btn filt-pri" data-pri="MED"><span class="sb-dot" style="background:var(--amb)"></span>Medium</button>
+      </div>
+      <div class="sb-div"></div>
+      <div class="sb-section">
+        <div class="sb-label">Corridor</div>
+        <button class="sb-btn filt-cor active" data-cor="0"><span class="sb-dot"></span>All corridors</button>
+        <button class="sb-btn filt-cor" data-cor="1"><span class="sb-dot" style="background:var(--c1)"></span>C1 North</button>
+        <button class="sb-btn filt-cor" data-cor="2"><span class="sb-dot" style="background:var(--c2)"></span>C2 Central</button>
+        <button class="sb-btn filt-cor" data-cor="3"><span class="sb-dot" style="background:var(--c3)"></span>C3 East Side</button>
+        <button class="sb-btn filt-cor" data-cor="4"><span class="sb-dot" style="background:var(--c4)"></span>C4 South/SW</button>
+      </div>
+      <div class="sb-footer">Phil Lady<br><a href="tel:12604200077" style="color:var(--g);text-decoration:none">(260) 420-0077</a><br>SERVPRO of Fort Wayne</div>
+    </div>
+
+    <!-- PANEL -->
+    <div class="panel-scroll" id="panel-scroll">
+      <!-- Mobile search + filters (shown only on mobile for homes tab) -->
+      <div class="search-bar" id="mob-search-bar">
+        <input class="search-inp" id="mob-search" type="text" placeholder="Search homes…">
+      </div>
+      <div class="filters" id="mob-filters">
+        <button class="chip on" id="chip-ALL" data-pri="ALL">All</button>
+        <button class="chip" id="chip-SCI" data-pri="SCI" style="border-color:rgba(155,111,240,.4)">★ SCI</button>
+        <button class="chip" id="chip-HIGH" data-pri="HIGH" style="border-color:rgba(240,80,80,.4)">High</button>
+        <button class="chip" id="chip-MED" data-pri="MED" style="border-color:rgba(240,144,48,.4)">Med</button>
+        <button class="chip" id="chip-c0" data-cor="0">All corridors</button>
+        <button class="chip" id="chip-c1" data-cor="1" style="border-color:rgba(59,142,245,.4)">C1 North</button>
+        <button class="chip" id="chip-c2" data-cor="2" style="border-color:rgba(155,111,240,.4)">C2 Central</button>
+        <button class="chip" id="chip-c3" data-cor="3" style="border-color:rgba(240,160,48,.4)">C3 East</button>
+        <button class="chip" id="chip-c4" data-cor="4" style="border-color:rgba(34,199,138,.4)">C4 SW</button>
+      </div>
+      <div id="panel"></div>
+    </div>
+  </div>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <div class="bottom-nav">
+    <button class="nav-btn" data-tab="strategy"><span class="icon">🏆</span><span class="label">How to Win</span></button>
+    <button class="nav-btn" data-tab="pitch"><span class="icon">📋</span><span class="label">The Pitch</span></button>
+    <button class="nav-btn active" data-tab="homes"><span class="icon">🏛</span><span class="label">Homes</span></button>
+    <button class="nav-btn" data-tab="doors"><span class="icon">🔑</span><span class="label">Openers</span></button>
+    <button class="nav-btn" data-tab="routes"><span class="icon">🗺</span><span class="label">Routes</span></button>
+  </div>
+</div>
+
+<script>
+const G='#00c45a',C1='#3b8ef5',C2='#9b6ff0',C3='#f0a030',C4='#22c78a';
+const COR={1:{l:'NORTH',desc:'Lima Rd · Clinton · Dupont · Maplecrest',c:C1,route:'N Clinton → E Dupont → Maplecrest → Lima Rd. ~14 mi, plan 3–4 hrs.'},2:{l:'CENTRAL',desc:'W Main · N Wells · Coliseum · Lake Ave',c:C2,route:'W Main → N Wells → W Coliseum → N Lake Ave. Tight 4 mi cluster, 2–3 hrs.'},3:{l:'EAST SIDE',desc:'E Lewis · Eliza St · E Jefferson',c:C3,route:'Three stops within 0.5 miles. Plan 90 min total.'},4:{l:'SOUTH/SW',desc:'Fairfield · Magnavox · Old Trail · Waynedale',c:C4,route:'S Calhoun → Fairfield → Magnavox → Old Trail Rd. ~10 mi, 2–3 hrs.'}};
+const PRI={HIGH:{c:'#f05050',l:'HIGH'},SCI:{c:'#9b6ff0',l:'★ SCI'},MED:{c:'#f09030',l:'MED'}};
+
+const HOMES=[
+  {id:1,cor:1,name:'FairHaven Funeral Home & Cremation Services',short:'FairHaven',addr:'6557 N Clinton St, Fort Wayne, IN 46825',phone:'(260) 424-5000',own:'Independent LLC',sqft:'~6,000–9,000 sq ft + on-site crematory',pri:'HIGH',note:'Voted Best FW Funeral Home 7 years running · On-site crematory adds biohazard & HVAC exposure',plays:['ERP','RELATIONSHIP SELL','AFTERCARE REFERRAL','CREMATORY'],dms:[{n:'Britton Claghorn',t:'Owner — BBB Principal Contact',p:'(260) 424-5000'},{n:'Mark Scheidt',t:'Co-Owner',p:'(260) 424-5000'},{n:'Jarod Steffen',t:'Co-Owner',p:'(260) 424-5000'},{n:'Lucas Glessner',t:'Co-Owner',p:'(260) 424-5000'}],doors:[{n:'Daniel Ackermann',co:'Hoch Insurance',p:'(260) 433-8364',e:'dackermann@hochinsurance.com',hot:true},{n:'Ronald Heilman',co:'Summit City Ins. (Owner)',p:'(260) 432-7999',e:'ronheilman@scici.net',hot:true},{n:'Aaron Hagan',co:'Gallagher Insurance',p:'(260) 298-6101',e:'aaron_hagan@ajg.com',hot:false},{n:'Brad Sturges',co:'Sturges Property Group',p:'(260) 424-8448',e:'',hot:false}],opener:'Phil Lady, SERVPRO Team Miller — Fort Wayne neighbors. We do complimentary ERPs for funeral homes specifically because of the zero-tolerance environment you run. Can I get 45 minutes to walk the facility with you?'},
+  {id:2,cor:2,name:'D.O. McComb — Tribute Center',short:'McComb Tribute ★',addr:'2307 W Main St, Fort Wayne, IN 46808',phone:'(260) 426-9494',own:'SCI / Dignity Memorial®',sqft:'~18,000–30,000 sq ft — FLAGSHIP',pri:'SCI',note:'START HERE for SCI portfolio deal · Ask GM for Regional Ops contact',plays:['SCI PORTFOLIO LEAD','CHAIN MSA','ERP ALL LOCATIONS'],dms:[{n:'General Manager',t:'Flagship — ask for SCI Regional Ops Mgr',p:'(260) 426-9494'},{n:'SCI Regional Ops Mgr',t:'★ PRIMARY TARGET — one contact = all SCI Allen Co.',p:'Via GM'}],doors:[{n:'Ronald Heilman',co:'Summit City Insurance',p:'(260) 432-7999',e:'ronheilman@scici.net',hot:true},{n:'Aaron Hagan',co:'Gallagher Insurance',p:'(260) 298-6101',e:'aaron_hagan@ajg.com',hot:true},{n:'Brad Sturges',co:'Sturges Property Group',p:'(260) 424-8448',e:'',hot:false}],opener:"Phil Lady, SERVPRO Team Miller. You're the flagship for the McComb family across Fort Wayne. We want a portfolio-level ERP for all your locations — starting here. Who at the regional level handles vendor and facilities agreements for your Indiana properties?"},
+  {id:3,cor:2,name:'C.M. Sloan & Sons Funeral Home',short:'C.M. Sloan',addr:'1327 N Wells St, Fort Wayne, IN 46808',phone:'(260) 422-4232',own:'SCI / Dignity Memorial®',sqft:'~8,000–14,000 sq ft (1939 building)',pri:'SCI',note:'Bundle same day as Tribute Center · Riley Confer named in Google review response',plays:['SCI BUNDLE W/ McCOMB','ERP','HISTORIC BLDG RISK'],dms:[{n:'Riley Confer',t:'Location Manager — NAMED in Google reviews',p:'(260) 422-4232'},{n:'SCI Regional Ops Mgr',t:'Ask Riley — same contact as McComb',p:'Via Riley'}],doors:[{n:'Laine Bryant',co:'WalkerHughes (Commercial Lines)',p:'(260) 244-6174',e:'l.bryant@walkerhughes.com',hot:false},{n:'Ronald Heilman',co:'Summit City Insurance',p:'(260) 432-7999',e:'ronheilman@scici.net',hot:true}],opener:"Hi, is Riley Confer available? Phil Lady with SERVPRO Team Miller. We're working through all the Dignity Memorial locations in Fort Wayne — want to make sure Sloan is in our emergency protocol. Can I set up a 45-minute walk-through?"},
+  {id:4,cor:1,name:'Sheets & Childs — Huntertown',short:'Sheets & Childs',addr:'16830 Lima Rd, Huntertown, IN 46748',phone:'(260) 693-2907',own:'Independent — Owner: Miles',sqft:'~4,000–7,000 sq ft',pri:'HIGH',note:'Ask for Miles by name · Craig Traxler at Traxler-Parker is same small town — highest-confidence warm intro',plays:['ERP','RELATIONSHIP SELL','AFTERCARE REFERRAL'],dms:[{n:'Miles',t:'Owner / Director — named in multiple customer reviews',p:'(260) 693-2907'}],doors:[{n:'Craig Traxler',co:'Traxler-Parker Ins. — Churubusco ★ SAME TOWN',p:'(260) 693-2229',e:'craig@traxlerins.com',hot:true},{n:'NW Fire Huntertown',co:'First responders — know Miles',p:'(260) 449-3698',e:'',hot:false}],opener:"Hi, is Miles available? Phil Lady with SERVPRO Team Miller — I got your name from Craig Traxler at Traxler-Parker. We work with funeral homes for emergency restoration and aftercare referrals. Can I stop in and walk the Huntertown facility with you?"},
+  {id:5,cor:1,name:'Divine Mercy — Cedar Canyons (Huntertown)',short:'Divine Mercy Cedar',addr:'1986 W Cedar Canyons Rd, Huntertown, IN 46748',phone:'divinemercyfuneralhome.com',own:'Diocese of Fort Wayne-South Bend',sqft:'~5,000–9,000 sq ft',pri:'HIGH',note:'Diocese umbrella = dozens of additional properties · Bundle with FW Main location',plays:['DIOCESE UMBRELLA PLAY','ERP BOTH LOCATIONS','INSTITUTIONAL MSA'],dms:[{n:'Diocesan Facilities Director',t:'Diocese of FW-South Bend — manages all diocesan buildings',p:'Via diocese office'}],doors:[{n:'Sacred Heart Village',co:'Catholic ALF — same Diocese (Avilla)',p:'(260) 582-2773',e:'',hot:false},{n:'NW Fire Huntertown',co:'First responders',p:'(260) 449-3698',e:'',hot:false}],opener:"Phil Lady, SERVPRO Team Miller. We serve several facilities in the Diocese of Fort Wayne-South Bend and wanted to make sure Divine Mercy's Cedar Canyons location has our emergency protocol on file. Can I connect with whoever handles facilities for the Diocese?"},
+  {id:6,cor:1,name:'D.O. McComb — Pine Valley',short:'McComb Pine Valley',addr:'1320 E Dupont Rd, Fort Wayne, IN 46825',phone:'(260) 426-9494',own:'SCI / Dignity Memorial®',sqft:'~6,000–10,000 sq ft',pri:'SCI',note:'Bundle with Maplewood Park — same NE route loop',plays:['SCI PORTFOLIO PLAY','ERP'],dms:[{n:'Location Manager',t:'Ask for SCI Regional Ops contact',p:'(260) 426-9494'}],doors:[{n:'Melissa Markey',co:'Hoch Insurance',p:'(260) 760-6585',e:'mmarkey@hochinsurance.com',hot:false},{n:'John Markey',co:'Hoch Insurance',p:'(260) 627-3517',e:'jmarkey@hochinsurance.com',hot:false}],opener:"Phil Lady, SERVPRO Team Miller. We're working through all the Dignity Memorial locations in Fort Wayne — can I set up a 45-minute complimentary ERP walk-through for this location?"},
+  {id:7,cor:1,name:'D.O. McComb — Maplewood Park',short:'McComb Maplewood',addr:'4017 Maplecrest Rd, Fort Wayne, IN 46815',phone:'(260) 426-9494',own:'SCI / Dignity Memorial®',sqft:'~6,000–10,000 sq ft',pri:'SCI',note:'Bundle with Pine Valley — NE Fort Wayne loop',plays:['SCI PORTFOLIO PLAY','ERP'],dms:[{n:'Location Manager',t:'Ask for SCI Regional Ops contact',p:'(260) 426-9494'}],doors:[{n:'Ronald Heilman',co:'Summit City Insurance',p:'(260) 432-7999',e:'ronheilman@scici.net',hot:true}],opener:"Phil Lady, SERVPRO Team Miller. Same conversation as the other McComb locations — completing ERP documentation for all your Fort Wayne facilities. 45 minutes, complimentary."},
+  {id:8,cor:2,name:'D.O. McComb — Lakeside Park',short:'McComb Lakeside',addr:'1140 Lake Ave, Fort Wayne, IN 46805',phone:'(260) 426-9494',own:'SCI / Dignity Memorial®',sqft:'~8,000–15,000 sq ft (orig. 1928)',pri:'SCI',note:'Nearly 100-year-old plumbing — lead with infrastructure age risk',plays:['SCI PORTFOLIO PLAY','ERP','AGED INFRASTRUCTURE'],dms:[{n:'Location Manager',t:'Ask for SCI Regional Ops contact',p:'(260) 426-9494'}],doors:[{n:'Brad Sturges',co:'Sturges Property Group',p:'(260) 424-8448',e:'',hot:false},{n:'Ronald Heilman',co:'Summit City Insurance',p:'(260) 432-7999',e:'ronheilman@scici.net',hot:true}],opener:"Phil Lady, SERVPRO Team Miller. The Lakeside facility is one of the oldest in Fort Wayne — we'd love to do a complimentary ERP walk-through and document your shut-offs. 45 minutes, no cost."},
+  {id:9,cor:2,name:'Midwest Funeral Home & Cremation Society',short:'Midwest Funeral',addr:'1415 W Coliseum Blvd, Fort Wayne, IN 46808',phone:'midwestfuneralhome.com',own:'Independent',sqft:'~4,000–8,000 sq ft + on-site crematory',pri:'MED',note:"On-site crematory = biohazard & HVAC exposure. GCs can't legally do what SERVPRO can here.",plays:['ERP','CREMATORY BIOHAZARD','AFTERCARE REFERRAL'],dms:[{n:'Owner / Funeral Director',t:'Independent — direct decision-maker',p:'midwestfuneralhome.com'}],doors:[{n:'Aaron Hagan',co:'Gallagher Insurance',p:'(260) 298-6101',e:'aaron_hagan@ajg.com',hot:false},{n:'Brad Taylor',co:'Brad Taylor State Farm',p:'(260) 422-7575',e:'',hot:false}],opener:"Phil Lady, SERVPRO Team Miller. We work specifically with cremation societies because the biohazard and HVAC exposure in your operation is a category general contractors can't handle legally. Can I walk the facility and put an ERP on file for you?"},
+  {id:10,cor:3,name:'Ellis Funeral Home LLC',short:'Ellis Funeral',addr:'1021 E Lewis St, Fort Wayne, IN 46803',phone:'(260) 422-6958',own:'Independent — Community (70+ yr legacy)',sqft:'~3,000–6,000 sq ft',pri:'MED',note:'Bundle with Nelson + Carmichael — all within 0.5 miles',plays:['ERP','COMMUNITY RELATIONSHIP','AFTERCARE REFERRAL'],dms:[{n:'Owner / Funeral Director',t:'Community-embedded, long-standing legacy',p:'(260) 422-6958'}],doors:[{n:'Washington Twp Fire',co:'East FW first responders',p:'(260) 448-3671',e:'',hot:false},{n:'East Central Fire',co:'New Haven / east FW zone',p:'(260) 493-7500',e:'',hot:false}],opener:"Phil Lady, SERVPRO Team Miller. Making sure every funeral home in Fort Wayne has our number before they ever need us — because when something goes wrong in your building, your families can't wait. Can I stop by for a quick introduction this week?"},
+  {id:11,cor:3,name:'Nelson Memorial Gardens, Inc.',short:'Nelson Memorial',addr:'1338 Eliza St, Fort Wayne, IN 46803',phone:'(260) 422-5577',own:'Independent — Community',sqft:'~3,000–6,000 sq ft',pri:'MED',note:'0.3 miles from Ellis — hit both in one east-side stop',plays:['ERP','AFTERCARE REFERRAL','EAST SIDE BUNDLE'],dms:[{n:'Owner / Funeral Director',t:'Direct decision-maker',p:'(260) 422-5577'}],doors:[{n:'Washington Twp Fire',co:'Same response zone',p:'(260) 448-3671',e:'',hot:false}],opener:"Phil Lady, SERVPRO Team Miller. I'm visiting funeral homes on the east side today — Ellis was my first stop just up the street. Can I take 10 minutes to introduce the team?"},
+  {id:12,cor:3,name:'Community Funeral Care — Carmichael',short:'Carmichael Chapel',addr:'831 E Jefferson Blvd, Fort Wayne, IN 46803',phone:'Directory',own:'Independent',sqft:'~3,000–5,000 sq ft',pri:'MED',note:'Third stop on east-side bundle — Ellis → Nelson → Carmichael, under 90 min',plays:['ERP','AFTERCARE REFERRAL','EAST SIDE BUNDLE'],dms:[{n:'Owner / Funeral Director',t:'Independent — direct decision-maker',p:'Directory'}],doors:[{n:'Washington Twp Fire',co:'Same response zone',p:'(260) 448-3671',e:'',hot:false}],opener:"Phil Lady, SERVPRO Team Miller. I've been visiting funeral homes along Jefferson today — want to make sure Carmichael Chapel has our emergency contact info on file. Quick introduction, 10 minutes."},
+  {id:13,cor:4,name:'D.O. McComb — Foster Park',short:'McComb Foster',addr:'6301 Fairfield Ave, Fort Wayne, IN 46807',phone:'(260) 426-9494',own:'SCI / Dignity Memorial®',sqft:'~6,000–10,000 sq ft',pri:'SCI',note:'Bundle with Elzey Waynedale + NI Funeral Care — SW route day',plays:['SCI PORTFOLIO PLAY','ERP','SW ZONE BUNDLE'],dms:[{n:'Location Manager',t:'Ask for SCI Regional Ops contact',p:'(260) 426-9494'}],doors:[{n:'SW Fire District',co:'First responders / Yoder zone',p:'(260) 747-7786',e:'',hot:false},{n:'Aaron Hagan',co:'Gallagher Insurance',p:'(260) 298-6101',e:'aaron_hagan@ajg.com',hot:false}],opener:"Phil Lady, SERVPRO Team Miller. Visiting the Dignity Memorial locations in Fort Wayne — completing ERP documentation for the full portfolio. Can I set up 45 minutes with the location manager?"},
+  {id:14,cor:4,name:'Elzey-Patterson-Rodak — Waynedale',short:'Elzey Waynedale',addr:'6810 Old Trail Rd, Fort Wayne, IN 46809',phone:'dignitymemorial.com',own:'SCI / Dignity Memorial®',sqft:'~6,000–10,000 sq ft',pri:'SCI',note:'⚠️ Confirm 46809 ZIP in FTW territory with home office before visit',plays:['SCI PORTFOLIO PLAY','ERP','CONFIRM ZIP BOUNDARY'],dms:[{n:'Location Director',t:'Same SCI Regional contact as McComb & Sloan',p:'Via Dignity Memorial'}],doors:[{n:'SW Fire District',co:'SW Fort Wayne',p:'(260) 747-7786',e:'',hot:false}],opener:"Phil Lady, SERVPRO Team Miller. Working through all the Dignity Memorial locations in our territory — wanted to make sure the Waynedale location has our emergency protocol on file. Can I set up a 45-minute walk-through?"},
+  {id:15,cor:4,name:'Northern Indiana Funeral Care',short:'NI Funeral Care',addr:'1319 Magnavox Way, Fort Wayne, IN 46804',phone:'Directory',own:'Independent',sqft:'~4,000–8,000 sq ft',pri:'MED',note:'SW Fort Wayne zone — bundle with Foster Park + Elzey Waynedale',plays:['ERP','AFTERCARE REFERRAL','SW ZONE'],dms:[{n:'Owner / Funeral Director',t:'Independent — direct decision-maker',p:'Directory'}],doors:[{n:'Aaron Orr',co:'Capital Property Mgmt (Gold CRM)',p:'(260) 444-7760',e:'aaronorr@capitalpm.biz',hot:false},{n:'West Central Fire',co:'Aboite Center Rd area',p:'(260) 436-1449',e:'',hot:false}],opener:"Phil Lady, SERVPRO Team Miller. Reaching out to funeral homes in Fort Wayne — we specialize in the discreet, certified response your operation specifically needs. Can I stop by for a quick introduction this week?"},
+  {id:16,cor:2,name:'Divine Mercy — Fort Wayne Main',short:'Divine Mercy Main',addr:'Fort Wayne, IN (confirm at divinemercyfuneralhome.com)',phone:'divinemercyfuneralhome.com',own:'Diocese of Fort Wayne-South Bend',sqft:"~10,000–18,000 sq ft — 'FW's most beautiful FH'",pri:'HIGH',note:'Diocese umbrella — one Facilities Director manages both Divine Mercy locations. One conversation, two sites.',plays:['DIOCESE UMBRELLA PLAY','ERP BOTH LOCATIONS','INSTITUTIONAL MSA'],dms:[{n:'Diocesan Facilities Director',t:'Diocese of FW-South Bend — manages all diocesan properties',p:'Via diocese office'}],doors:[{n:'Sacred Heart Village',co:'Catholic ALF — same Diocese (Avilla)',p:'(260) 582-2773',e:'',hot:false},{n:'Ronald Heilman',co:'Summit City Insurance',p:'(260) 432-7999',e:'ronheilman@scici.net',hot:true}],opener:"Phil Lady, SERVPRO Team Miller. We serve several facilities in the Diocese of Fort Wayne-South Bend — wanted to make sure Divine Mercy's main location knows us by name before an event happens. One conversation with your facilities director covers both locations."},
+];
+
+const DOORS=[
+  {cat:'HOSPICE — #1 CONNECTOR',n:'Emily Lahr',co:'Stillwater Hospice — in CRM',p:'(260) 435-3244',e:'',c:'#f05050',why:"Hospice staff are first to know when patients die at home. Direct pipeline to every funeral director in Fort Wayne. Already in Phil's CRM under Camille Reynolds."},
+  {cat:'INSURANCE — COMMERCIAL',n:'Ronald Heilman (Owner)',co:'Summit City Insurance Counselors',p:'(260) 432-7999',e:'ronheilman@scici.net',c:'#9b6ff0',why:"Owns one of Fort Wayne's oldest commercial insurance agencies. Knows every independent funeral home owner in the city. A warm intro from Ron opens any independent FH door."},
+  {cat:'INSURANCE — COMMERCIAL',n:'Chad Heilman (CFO)',co:'Summit City Insurance Counselors',p:'(260) 432-7999',e:'cheilman@scici.net',c:'#9b6ff0',why:'Same agency. Two contacts = two paths to the intro.'},
+  {cat:'INSURANCE — COMMERCIAL',n:'Daniel Ackermann',co:'Hoch Insurance',p:'(260) 433-8364',e:'dackermann@hochinsurance.com',c:'#9b6ff0',why:'Prominent FW commercial broker. Very likely knows FairHaven and Sloan ownership by name.'},
+  {cat:'INSURANCE — COMMERCIAL',n:'Aaron Hagan',co:'Gallagher Insurance — Fort Wayne',p:'(260) 298-6101',e:'aaron_hagan@ajg.com',c:'#9b6ff0',why:'Gallagher large enough to carry SCI corporate lines. Ask if he has the Dignity Memorial regional facilities contact.'},
+  {cat:'INSURANCE — COMMERCIAL',n:'Laine Bryant',co:'WalkerHughes (Commercial Lines)',p:'(260) 244-6174',e:'l.bryant@walkerhughes.com',c:'#9b6ff0',why:'Commercial lines specialist — likely insures funeral home operators across Allen County.'},
+  {cat:'REAL ESTATE',n:'Brad Sturges',co:'Sturges Property Group — active MSA client',p:'(260) 424-8448',e:'',c:'#3b8ef5',why:"Most prominent commercial RE figure in Fort Wayne. Active MSA client. Knows building owners of virtually every Allen County commercial property."},
+  {cat:'CHURUBUSCO ★ WARM INTRO',n:'Craig Traxler',co:'Traxler-Parker Insurance — Churubusco',p:'(260) 693-2229',e:'craig@traxlerins.com',c:'#f09030',why:'HIGHEST CONFIDENCE: Same small town as Sheets & Childs. Almost certainly knows Miles personally. Call Craig before cold-calling the funeral home.'},
+  {cat:'FIRE DEPT — DEATH SCENE',n:'NW Fire — Huntertown',co:'Huntertown response zone',p:'(260) 449-3698',e:'',c:'#f97316',why:'First responders to every death scene near Sheets & Childs and Divine Mercy Cedar Canyons. Build this referral relationship.'},
+  {cat:'FIRE DEPT — DEATH SCENE',n:'SW Fire District',co:'SW Fort Wayne / Yoder',p:'(260) 747-7786',e:'',c:'#f97316',why:'Covers Foster Park, Covington Knolls, Elzey-Patterson-Rodak zones.'},
+  {cat:'FIRE DEPT — DEATH SCENE',n:'Washington Twp Fire',co:'East / South FW zone',p:'(260) 448-3671',e:'',c:'#f97316',why:'East-side first responders. Know every funeral director on E Lewis / Eliza / E Jefferson by first name.'},
+  {cat:'FIRE DEPT — DEATH SCENE',n:'East Central Fire',co:'New Haven / east FW zone',p:'(260) 493-7500',e:'',c:'#f97316',why:'Covers east FW and New Haven. Dispatched to unattended deaths throughout corridor 3.'},
+  {cat:'COMMERCIAL PM',n:'Aaron Orr',co:'Capital Property Mgmt — Gold CRM',p:'(260) 444-7760',e:'aaronorr@capitalpm.biz',c:'#22c78a',why:'Manages commercial properties in SW Fort Wayne. May know operator at Northern Indiana Funeral Care personally.'},
+  {cat:'HOSPITAL — EP COORD.',n:'Richard Cummins',co:'Lutheran Hospital — Emergency Preparedness',p:'(260) 435-7014',e:'richard_cummins@chs.net',c:'#3b8ef5',why:'EP Coordinator — already in CRM. Ask which FHs he refers families to.'},
+  {cat:'ASSISTED LIVING NETWORK',n:'33 ALF Facilities — 31 Named Contacts',co:"Phil's full AL / Senior Living CRM list",p:'See CRM',e:'',c:'#22c78a',why:"Every ALF calls a funeral home for every resident death. Phil has 31 named contacts. Ask: 'Which FH do you call most? Can you introduce me?'"},
+];
+
+const ALF=[['Heritage Pointe of FW','(260) 209-6279'],['Kingston Care Center','(260) 489-2552'],['StoryPoint Fort Wayne','(260) 888-8196'],['Arbor Glen Assisted Living','(260) 492-2022'],['Park Place Senior Living','(260) 480-2500'],['Village at Pine Valley','(260) 234-2929']];
+
+let S={tab:'homes',sel:null,cor:0,pri:'ALL',q:''};
+
+function e(tag,cls,html){const el=document.createElement(tag);if(cls)el.className=cls;if(html!==undefined)el.innerHTML=html;return el;}
+function d(cls,html){return e('div',cls,html);}
+function a(cls,href,txt){const el=e('a',cls,txt);el.href=href;return el;}
+
+function filt(){return HOMES.filter(h=>{
+  if(S.cor&&h.cor!==S.cor)return false;
+  if(S.pri!=='ALL'&&h.pri!==S.pri)return false;
+  if(S.q){const q=S.q.toLowerCase();return h.name.toLowerCase().includes(q)||h.addr.toLowerCase().includes(q)||h.plays.some(p=>p.toLowerCase().includes(q));}
+  return true;
+});}
+
+function renderHomes(){
+  const fl=filt();
+  const ct=document.getElementById('sb-homes-ct');if(ct)ct.textContent=fl.length;
+  const w=d('fade-in');
+  const g=d('cards');
+  if(!fl.length){g.appendChild(d('empty','No results matching your filters.'));w.appendChild(g);return w;}
+  fl.forEach(h=>{
+    const cm=COR[h.cor],pm=PRI[h.pri],hd=h.doors.find(dr=>dr.hot);
+    const card=d('card');
+    const stripe=d('card-stripe');stripe.style.background=cm.c;card.appendChild(stripe);
+    const body=d('card-body');
+    const tags=d('card-tags');
+    const t1=d('tag',`C${h.cor}`);t1.style.cssText=`color:${cm.c};border-color:${cm.c}44;background:${cm.c}14`;
+    const t2=d('tag',pm.l);t2.style.cssText=`color:${pm.c};border-color:${pm.c}44;background:${pm.c}14`;
+    tags.append(t1,t2);body.appendChild(tags);
+    body.appendChild(d('card-name',h.name));
+    body.appendChild(d('card-addr',h.addr));
+    const plays=d('plays');
+    h.plays.slice(0,3).forEach(p=>{const pc=d('play',p);pc.style.cssText=`color:${cm.c};border-color:${cm.c}40;background:${cm.c}10`;plays.appendChild(pc);});
+    body.appendChild(plays);
+    const foot=d('card-foot');
+    if(h.phone.startsWith('(')){const pa=a('cphone',`tel:${h.phone}`,h.phone);pa.onclick=ev=>ev.stopPropagation();foot.appendChild(pa);}
+    foot.appendChild(d('cdm',h.dms[0].n));
+    body.appendChild(foot);
+    if(hd)body.appendChild(d('door-snip',`🔑 ${hd.n} — ${hd.co}`));
+    card.appendChild(body);
+    card.onclick=()=>{S.sel=h;render();document.getElementById('panel-scroll').scrollTop=0;};
+    g.appendChild(card);
+  });
+  w.appendChild(g);return w;
+}
+
+function renderDetail(h){
+  const cm=COR[h.cor],pm=PRI[h.pri];
+  const w=d('detail fade-in');
+  const back=e('button','back-btn','← Back');back.onclick=()=>{S.sel=null;render();document.getElementById('panel-scroll').scrollTop=0;};
+  w.appendChild(back);
+  // Header
+  const hdr=d('det-hdr');hdr.style.borderLeft=`3px solid ${cm.c}`;
+  const tags=d('card-tags');
+  const t1=d('tag',`C${h.cor} — ${cm.l}`);t1.style.cssText=`color:${cm.c};border-color:${cm.c}44;background:${cm.c}14`;
+  const t2=d('tag',pm.l+' Priority');t2.style.cssText=`color:${pm.c};border-color:${pm.c}44;background:${pm.c}14`;
+  tags.append(t1,t2);hdr.appendChild(tags);
+  hdr.appendChild(d('det-name',h.name));hdr.appendChild(d('det-addr',h.addr));
+  const dg=d('det-grid');
+  [['OWNERSHIP',h.own],['EST. SQ FT',h.sqft],['PHONE',h.phone],['WEBSITE',h.web||'—']].forEach(([lbl,val])=>{
+    const df=d('det-field');df.appendChild(d('det-lbl',lbl));
+    if(lbl==='PHONE'&&h.phone.startsWith('(')){const cb=a('call-btn',`tel:${h.phone}`,`📞 ${h.phone}`);df.appendChild(cb);}
+    else df.appendChild(d('det-val',val));dg.appendChild(df);
+  });
+  hdr.appendChild(dg);
+  if(h.note)hdr.appendChild(d('det-note',`💡 ${h.note}`));
+  w.appendChild(hdr);
+  // Plays
+  const ps=d('sec');ps.appendChild(d('sec-lbl',`<span style="color:${cm.c}">SERVPRO PLAYS</span>`));
+  const pb=d('sec-body');const pr=d('plays');
+  h.plays.forEach(p=>{const pc=d('play',p);pc.style.cssText=`color:${cm.c};border-color:${cm.c}50;background:${cm.c}12;font-size:10px;padding:4px 10px`;pr.appendChild(pc);});
+  pb.appendChild(pr);ps.appendChild(pb);w.appendChild(ps);
+  // DMs
+  const dms=d('sec');dms.appendChild(d('sec-lbl','<span style="color:#9b6ff0">◆ DECISION MAKERS</span>'));
+  const db=d('sec-body');
+  h.dms.forEach(dm=>{
+    const row=d('dm-row');const info=d('dm-info');
+    info.appendChild(d('dm-name',dm.n));info.appendChild(d('dm-title',dm.t));row.appendChild(info);
+    if(dm.p.startsWith('(')){const cb=a('call-btn',`tel:${dm.p}`,`📞 ${dm.p}`);row.appendChild(cb);}
+    db.appendChild(row);
+  });
+  dms.appendChild(db);w.appendChild(dms);
+  // Doors
+  const ds=d('sec');ds.style.cssText='background:rgba(0,196,90,0.04);border-color:rgba(0,196,90,0.2)';
+  ds.appendChild(d('sec-lbl',`<span style="color:${G}">🔑 CRM DOOR OPENERS — Phil already knows these people</span>`));
+  const dob=d('sec-body');
+  h.doors.forEach(dr=>{
+    const row=d('door-row'+(dr.hot?' hot':''));
+    const di=d('door-info');
+    const nl=d('');const nm=d('door-name',dr.n);if(dr.hot){nm.appendChild(d('hot-tag','🔥 HOT'));}nl.appendChild(nm);nl.appendChild(d('door-co',dr.co));di.appendChild(nl);
+    const acts=d('door-actions');
+    if(dr.p.startsWith('(')){acts.appendChild(a('call-btn',`tel:${dr.p}`,`📞 ${dr.p}`));}
+    if(dr.e){acts.appendChild(a('email-btn',`mailto:${dr.e}`,`✉ Email`));}
+    di.appendChild(acts);row.appendChild(di);dob.appendChild(row);
+  });
+  ds.appendChild(dob);w.appendChild(ds);
+  // Opener
+  const ob=d('opener-block');ob.appendChild(d('opener-lbl','📞 SUGGESTED OPENER'));ob.appendChild(d('opener-text',`"${h.opener}"`));w.appendChild(ob);
+  return w;
+}
+
+function renderDoors(){
+  const w=d('fade-in');const g=d('doors-list');
+  DOORS.forEach(dr=>{
+    const card=d('door-card');card.style.borderLeft=`3px solid ${dr.c}`;
+    card.appendChild(d('door-card-cat',dr.cat)).style.cssText=`color:${dr.c}`;
+    const cl=card.querySelector('.door-card-cat');if(cl)cl.style.color=dr.c;
+    card.appendChild(d('door-card-name',dr.n));card.appendChild(d('door-card-co',dr.co));
+    card.appendChild(d('door-card-why',`→ ${dr.why}`));
+    const foot=d('door-card-foot');
+    if(dr.p.startsWith('(')){foot.appendChild(a('call-btn',`tel:${dr.p}`,`📞 ${dr.p}`));}
+    if(dr.e){foot.appendChild(a('email-btn',`mailto:${dr.e}`,`✉ ${dr.e}`));}
+    card.appendChild(foot);g.appendChild(card);
+  });
+  w.appendChild(g);return w;
+}
+
+function renderRoutes(){
+  const w=d('fade-in');const cs=d('cors');
+  [1,2,3,4].forEach(cor=>{
+    const cm=COR[cor],ch=HOMES.filter(h=>h.cor===cor);
+    const card=d('cor-card');card.style.borderTop=`3px solid ${cm.c}`;
+    const head=d('cor-head');
+    const meta=d('cor-meta');
+    const info=d('');info.appendChild(d('cor-num',`CORRIDOR ${cor}`)).style.cssText=`color:${cm.c}`;
+    const cn=info.querySelector('.cor-num');if(cn)cn.style.color=cm.c;
+    info.appendChild(d('cor-title',cm.l)).style.cssText=`color:${cm.c}`;
+    const ctl=info.querySelector('.cor-title');if(ctl)ctl.style.color=cm.c;
+    info.appendChild(d('cor-desc',cm.desc));meta.appendChild(info);
+    const ct=d('cor-ct');ct.innerHTML=`<div class="big" style="color:${cm.c}">${ch.length}</div><div class="sm">locations</div>`;
+    meta.appendChild(ct);head.appendChild(meta);head.appendChild(d('cor-route',`🗺 ${cm.route}`));
+    card.appendChild(head);
+    const stops=d('cor-stops');
+    ch.forEach((h,i)=>{
+      const pm=PRI[h.pri];const row=d('stop-row');
+      const sn=d('stop-n',`${i+1}`);sn.style.color=cm.c;
+      const si=d('stop-info');
+      const nm=d('stop-name',h.short);const tb=d('tag',pm.l);tb.style.cssText=`font-size:9px;padding:1px 6px;color:${pm.c};border-color:${pm.c}44;background:${pm.c}12`;nm.appendChild(tb);
+      si.appendChild(nm);si.appendChild(d('stop-addr',h.addr.split(',').slice(0,2).join(',')));
+      row.append(sn,si);
+      if(h.phone.startsWith('(')){const sp=a('stop-phone',`tel:${h.phone}`,h.phone);sp.onclick=ev=>ev.stopPropagation();row.appendChild(sp);}
+      row.onclick=()=>{S.sel=h;S.tab='homes';updateAll();render();document.getElementById('panel-scroll').scrollTop=0;};
+      stops.appendChild(row);
+    });
+    card.appendChild(stops);cs.appendChild(card);
+  });
+  const alf=d('alf-block');alf.appendChild(d('alf-lbl','ALF Connector Network'));
+  alf.appendChild(d('alf-body','Phil has <strong style="color:var(--g)">31 named contacts at 33 ALF facilities</strong> in Allen County. Every ALF calls a funeral home for every resident death.'));
+  alf.appendChild(d('alf-ask','"[Name], when one of your residents passes away, which funeral home do you typically call? I\'d love a brief introduction to their team — we\'re building our aftercare referral network."'));
+  const ag=d('alf-grid');
+  ALF.forEach(([n,p])=>{const ai=d('alf-item');ai.appendChild(d('alf-name',n));ai.appendChild(a('alf-phone',`tel:${p}`,p));ag.appendChild(ai);});
+  alf.appendChild(ag);cs.appendChild(alf);w.appendChild(cs);return w;
+}
+
+function renderStrategy(){
+  const w=d('guide fade-in');
+  const intro=d('g-intro','<span style="font-family:Syne,sans-serif;font-size:16px;font-weight:800;color:#f59e0b;display:block;margin-bottom:8px">How to Win Fort Wayne\'s Funeral Home Market</span>Three plays cover all 16 operators. Two programs close every account. One complimentary ERP walk-through opens every door. Start there.');
+  intro.style.cssText='border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.06);color:#d8c890';
+  w.appendChild(intro);
+  const stats=d('g-stats');
+  [['16','Total Operators','#e8f0f8'],['9+','SCI Locations','#9b6ff0'],['3','Strategic Plays','#f59e0b'],['550–740','Referral Jobs / Yr','#00c45a']].forEach(([v,l,c])=>{
+    const s=d('g-stat');s.innerHTML=`<div class="gv" style="color:${c}">${v}</div><div class="gl">${l}</div>`;stats.appendChild(s);
+  });
+  w.appendChild(stats);
+
+  // Three plays
+  const s1=d('g-sec');s1.innerHTML='<div class="g-sec-head"><div class="g-sec-num" style="color:#f59e0b">01</div><div><div class="g-sec-title">The Three Plays</div><div class="g-sec-sub">Every funeral home in Allen County falls into one of these three approaches</div></div></div>';
+  const s1b=d('g-sec-body');
+  const plays=[
+    ['★','#9b6ff0','The SCI Portfolio Play','D.O. McComb · C.M. Sloan · Elzey-Patterson-Rodak Waynedale','D.O. McComb, C.M. Sloan, and Elzey-Patterson-Rodak are all owned by Service Corporation International (SCI) under the Dignity Memorial® brand. That\'s three business names, nine-plus locations, and <strong style="color:var(--text)">one corporate facilities decision-maker</strong>. Do not pitch these location by location. Visit the McComb Tribute Center on W Main St — the flagship — and ask the GM: "Who handles vendor and facilities agreements for all your Indiana Dignity Memorial locations?" That name is the key to the entire SCI account.',['McComb (6+ locations)','C.M. Sloan','Elzey Waynedale','ERP → CHAIN MSA']],
+    ['🤝','#00c45a','The Independent Relationship Play','FairHaven · Sheets & Childs · Midwest · Ellis · Nelson · Carmichael · NI Funeral Care','Independent funeral home directors built their businesses on trust and community. They don\'t respond to procurement pitches — they respond to neighbors.<br><br><strong style="color:var(--text)">1. Get a warm intro first.</strong> Check the Door Openers tab before cold-calling any independent. Craig Traxler at Traxler-Parker knows Miles at Sheets & Childs (same small town). Ron Heilman at Summit City Insurance knows FairHaven\'s owners. A warm intro is worth ten cold calls.<br><br><strong style="color:var(--text)">2. Lead with the ERP — not the sale.</strong> "I\'d love 45 minutes to walk your facility and put together a no-cost Emergency Response Plan." That\'s the ask. The contract follows from the relationship.',['FairHaven (Britton Claghorn)','Sheets & Childs (Miles)','Midwest Funeral','East Side Bundle']],
+    ['⛪','#3b8ef5','The Diocesan Umbrella Play','Divine Mercy Fort Wayne Main · Divine Mercy Cedar Canyons (Huntertown)','Divine Mercy is owned and operated by the Diocese of Fort Wayne-South Bend as a nonprofit ministry. The Diocesan Facilities Director doesn\'t just manage two funeral home buildings — they manage <strong style="color:var(--text)">dozens of parishes, schools, administrative offices, and retreat centers</strong> across northeast Indiana. A relationship here is an institutional account that can extend to every building the Diocese maintains. Connect through Sacred Heart Village in Avilla — a Catholic ALF already in Phil\'s CRM and under the same Diocese.',['Divine Mercy FW Main','Cedar Canyons Huntertown','Diocese Umbrella','Institutional MSA']],
+  ];
+  plays.forEach(([icon,clr,name,who,body,targets])=>{
+    const pc=d('play-card');pc.style.cssText=`border-color:${clr}44;background:${clr}0e`;
+    const top=d('play-card-top');
+    top.innerHTML=`<div class="play-card-icon">${icon}</div><div><div class="play-card-name" style="color:${clr}">${name}</div><div class="play-card-who">${who}</div></div>`;
+    pc.appendChild(top);pc.appendChild(d('play-card-body',body));
+    const tr=d('play-card-targets');
+    targets.forEach(t=>{const pt=d('pt',t);pt.style.cssText=`color:${clr};border-color:${clr}44;background:${clr}14`;tr.appendChild(pt);});
+    pc.appendChild(tr);s1b.appendChild(pc);
+  });
+  s1.appendChild(s1b);w.appendChild(s1);
+
+  // Two Programs
+  const s2=d('g-sec');s2.innerHTML='<div class="g-sec-head"><div class="g-sec-num" style="color:var(--g)">02</div><div><div class="g-sec-title">Two Programs That Close Every Account</div><div class="g-sec-sub">Both are free to start. Both generate revenue.</div></div></div>';
+  const s2b=d('g-sec-body');
+  const p1=d('prog-card');p1.innerHTML=`<div class="prog-lbl" style="color:var(--g)">PROGRAM 1 — FACILITY SERVICES</div><div class="prog-title">Emergency Response Plan (ERP)</div><div class="prog-body">A laminated protocol document specific to their building — shut-off locations, utility contacts, SERVPRO's direct emergency line. When something goes wrong at 2am before a Monday morning service, staff pull the ERP off the wall and make one call.<br><br>Phil provides the facility walk-through, documentation, and laminated cards at <strong style="color:var(--text)">no cost and no obligation</strong>. This is the door opener. The MSA, water/fire restoration, biohazard work, and preferred vendor agreement follow from this relationship.</div><div class="prog-foot">Once ERP is on file: <span style="color:var(--g)">4-hour guaranteed response, 24/7/365</span></div>`;
+  const p2=d('prog-card');p2.innerHTML=`<div class="prog-lbl" style="color:${C3}">PROGRAM 2 — AFTERCARE REFERRAL</div><div class="prog-title">The Question Every Funeral Director Gets</div><div class="prog-body"><em style="color:#e8d890">"Who can clean the house?"</em><br><br>When someone dies at home, the family stays with the contaminated property. The funeral director is the most trusted person in the room. Whoever they name gets the job.<br><br>Allen County sees ~3,700 deaths/year. Conservatively 15–20% involve a home needing professional remediation — that's <strong style="color:var(--text)">550–740 referral jobs annually</strong>. Average unattended death cleanup: $1,800–$30,000+.</div><div class="prog-foot"><span style="color:${C4}">Insurance billing when applicable — families often pay little or nothing out of pocket.</span></div>`;
+  s2b.append(p1,p2);s2.appendChild(s2b);w.appendChild(s2);
+
+  // Route Plan
+  const s3=d('g-sec');s3.innerHTML=`<div class="g-sec-head"><div class="g-sec-num" style="color:${C1}">03</div><div><div class="g-sec-title">5-Day Route Plan</div><div class="g-sec-sub">All 16 operators covered across four corridors</div></div></div>`;
+  const s3b=d('g-sec-body');const steps=d('steps');
+  [
+    ['1',C2,'SCI Sweep — Day 1','McComb Tribute Center (W Main) → McComb Lakeside (N Lake Ave) → C.M. Sloan (N Wells St). Goal: get the SCI Regional Ops Manager\'s name. One meeting unlocks 9+ locations.','Ask at every McComb stop: "Who handles facilities and vendor agreements for all your Indiana Dignity Memorial locations?"'],
+    ['2',C1,'North Corridor — Day 2','FairHaven (N Clinton St) → McComb Pine Valley (E Dupont Rd) → McComb Maplewood Park (Maplecrest Rd) → Sheets & Childs Huntertown (Lima Rd). Call Craig Traxler at Traxler-Parker first.','Hi, is Miles available? Phil Lady — I got your name from Craig Traxler at Traxler-Parker…'],
+    ['3',C1,'Diocese + Huntertown — Day 3','Divine Mercy Fort Wayne Main → Divine Mercy Cedar Canyons (Huntertown). One conversation with the Diocesan Facilities Director covers both sites.','Use Sacred Heart Village (in CRM) as the Diocese connection point.'],
+    ['4',C3,'East Side Bundle — Day 4','Ellis Funeral Home (E Lewis St) → Nelson Memorial Gardens (Eliza St) → Community Funeral Care/Carmichael (E Jefferson Blvd). Three stops within 0.5 miles — all under 90 min.','Lead with community respect and SERVPRO\'s commitment to every Fort Wayne neighborhood.'],
+    ['5',C4,'South/SW Sweep — Day 5','NI Funeral Care (Magnavox Way) → Elzey-Patterson-Rodak Waynedale (Old Trail Rd — confirm ZIP) → McComb Foster Park (Fairfield Ave) → Midwest Funeral Home (W Coliseum Blvd).','Elzey Waynedale is SCI — include in the portfolio conversation. Midwest has an on-site crematory.'],
+  ].forEach(([n,c,title,body,tip])=>{
+    const s=d('step');s.innerHTML=`<div class="step-num" style="color:${c}">${n}</div><div><div class="step-title">${title}</div><div class="step-body">${body}</div><div class="step-tip">${tip}</div></div>`;
+    steps.appendChild(s);
+  });
+  s3b.appendChild(steps);s3.appendChild(s3b);w.appendChild(s3);
+
+  return w;
+}
+
+function renderPitch(){
+  const w=d('guide fade-in');
+  const intro=d('g-intro','<span style="font-family:Syne,sans-serif;font-size:16px;font-weight:800;color:#9b6ff0;display:block;margin-bottom:8px">The Pitch — Leave-Behind & SOQ</span>Everything Phil needs to present SERVPRO Team Miller to a funeral home director. Use this to prepare before a visit or reference the PDF leave-behind after.');
+  intro.style.cssText='border-color:rgba(155,111,240,.3);background:rgba(155,111,240,.08);color:#c0b8e0';
+  w.appendChild(intro);
+
+  // WHY
+  const s1=d('g-sec');s1.innerHTML='<div class="g-sec-head"><div class="g-sec-num" style="color:var(--red)">01</div><div><div class="g-sec-title">Why SERVPRO for Funeral Homes</div><div class="g-sec-sub">The risk profile that makes this vertical unique</div></div></div>';
+  const s1b=d('g-sec-body');
+  const risk=d('',null);risk.style.cssText='display:flex;flex-direction:column;gap:7px';
+  [['Embalming & prep rooms','Daily biohazard exposure and HVAC-intensive chemical environments','#f05050'],['100+ year old buildings','Aged plumbing, deferred maintenance — several Allen County FHs are 80–130 years old','#f05050'],['On-site crematories','FairHaven and Midwest both operate them — HVAC, biohazard, and fire exposure','#f05050'],['24/7 operations','No acceptable maintenance windows — every hour of closure costs families','#f09030'],['IICRC-Certified Biohazard Techs','Legally qualified to remediate bloodborne pathogens. No GC in Fort Wayne can do this. SERVPRO can.','#00c45a'],['24/7/365 Response','Average on-site under 4 hours. Phil\'s personal cell on every ERP card.','#00c45a'],['Insurance Carrier Relationships','Preferred vendor for Travelers, Cincinnati Financial, Nationwide, Hartford, Zurich, FM Global. SERVPRO bills direct.','#00c45a'],['National + Local','1,900+ franchise network for large-loss capacity. Phil Lady and the FW team are Fort Wayne neighbors.','#00c45a']].forEach(([b,t,c])=>{
+    const r=d('svc-row');r.style.borderLeftColor=c;r.innerHTML=`<div class="svc-row-body"><div class="svc-name">${b}</div><div class="svc-desc">${t}</div></div>`;risk.appendChild(r);
+  });
+  s1b.appendChild(risk);s1.appendChild(s1b);w.appendChild(s1);
+
+  // CERTS
+  const s2=d('g-sec');s2.innerHTML='<div class="g-sec-head"><div class="g-sec-num" style="color:var(--g)">02</div><div><div class="g-sec-title">Active Certifications</div><div class="g-sec-sub">SERVPRO Team Miller holds all of these</div></div></div>';
+  const s2b=d('g-sec-body');
+  const cg=d('cert-grid');
+  [['IICRC WRT','Water Restoration Technician'],['IICRC FSRT','Fire & Smoke Restoration'],['IICRC AMRT','Applied Microbial Remediation'],['IICRC RBBT','Biohazard & Bloodborne Pathogen'],['OSHA 10/30','General Industry Safety'],['IICRC OCT','Odor Control Technician']].forEach(([n,desc])=>{
+    const c=d('cert-cell');c.innerHTML=`<div class="cert-name">${n}</div><div class="cert-desc">${desc}</div>`;cg.appendChild(c);
+  });
+  s2b.appendChild(cg);
+  const legal=d('insight','<strong style="color:#f05050">Biohazard Legal Authority:</strong> SERVPRO Team Miller\'s technicians hold IICRC RBBT certification and operate in compliance with OSHA 29 CFR 1910.1030. This is the legally required credential for remediating bloodborne pathogens. No general contractor or janitorial company holds this certification. This is a legal requirement — and we meet it.');
+  legal.style.cssText='border-color:rgba(240,80,80,.3);background:rgba(240,80,80,.06);color:var(--muted);margin-top:0';
+  s2b.appendChild(legal);s2.appendChild(s2b);w.appendChild(s2);
+
+  // PRICING
+  const s3=d('g-sec');s3.innerHTML=`<div class="g-sec-head"><div class="g-sec-num" style="color:${C3}">03</div><div><div class="g-sec-title">Pricing Context</div><div class="g-sec-sub">All work is scoped on-site — ranges for planning and conversation only</div></div></div>`;
+  const s3b=d('g-sec-body');
+  [['Facility Services',[
+    ['Emergency Water Restoration','$1,500–$8,000','Per room, depends on sq ft',false],
+    ['Structural Drying — full facility','$8,000–$22,000','To IICRC drying standard',false],
+    ['Mold Remediation','$2,500–$15,000','Includes containment and clearance testing',false],
+    ['Fire / Smoke Restoration','$5,000–$80,000','Full facility events at high end',false],
+    ['Biohazard — Preparation Suite','$2,000–$8,000','IICRC RBBT protocol, documentation included',true],
+    ['Odor Elimination (standalone)','$800–$3,500','Thermal fog, hydroxyl, or ozone',false],
+    ['Emergency Response Plan (ERP)','COMPLIMENTARY','No cost. No obligation. Always.',true],
+  ]],['Aftercare Referral Services — Family Jobs',[
+    ['Natural Death — minor cleanup','$800–$2,500','Discovered same day',false],
+    ['Natural Death — extended (2–5 days)','$2,500–$7,000','Soiling to flooring and soft goods',false],
+    ['Unattended Death — 1–2 weeks','$5,000–$15,000','Full biohazard protocol',true],
+    ['Unattended Death — decomposition','$10,000–$30,000','Subfloor, drywall extraction likely',true],
+    ['Trauma / Crime Scene Cleanup','$3,000–$20,000','Blood cleanup, decontamination',false],
+    ['Hoarding + Death (combined scope)','$15,000–$60,000','Most complex residential job type',true],
+    ['Estate Deep Cleaning (pre-listing)','$1,200–$4,500','Odor, deep clean, prep for sale',false],
+  ]]].forEach(([title,rows])=>{
+    s3b.appendChild(d('',`<div style="font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">${title}</div>`));
+    const pb=d('pricing-block');pb.appendChild(d('pricing-hdr','Service · Range · Notes'));
+    rows.forEach(([svc,range,note,hi])=>{
+      const r=d('pricing-row'+(hi?' hi':''));r.innerHTML=`<div class="pr-name">${svc}</div><div class="pr-vals"><span class="pr-val">${range}</span><span class="pr-note">${note}</span></div>`;pb.appendChild(r);
+    });
+    s3b.appendChild(pb);
+  });
+  s3.appendChild(s3b);w.appendChild(s3);
+
+  // OFFER
+  const s4=d('g-sec');s4.innerHTML='<div class="g-sec-head"><div class="g-sec-num" style="color:var(--g)">04</div><div><div class="g-sec-title">The Offer</div><div class="g-sec-sub">Two programs. No cost to start. No contract required.</div></div></div>';
+  const s4b=d('g-sec-body');const oc=d('offer-cards');
+  [['01','Complimentary ERP Walk-Through','Phil Lady schedules a 45–60 minute facility walk-through, documents every utility shut-off and risk exposure, produces a laminated ERP protocol for the wall and a digital copy on file with SERVPRO dispatch. No cost. No contract. Always.',G],
+   ['02','Preferred Vendor Agreement','Simple written agreement on the approved vendor list, priority response guarantee, and documented certificate of insurance for SCI/Dignity Memorial corporate vendor qualification. No retainer, no minimum spend.',C1],
+   ['03','Aftercare Referral Partner Enrollment','Printed SERVPRO Aftercare cards for the intake packet, a dedicated after-hours line for staff to reach Phil directly, and SERVPRO\'s commitment to represent the funeral home well with every referred family. No fees. No contract.',C3],
+   ['04','First-Call Guarantee','For facilities with an active ERP on file: response team on-site within 4 hours of the call, 24/7/365. Phil Lady\'s personal cell on every ERP card.',C2],
+  ].forEach(([num,title,body,c])=>{
+    const card=d('offer-card');card.style.borderBottomColor=c;
+    card.innerHTML=`<div class="offer-num" style="color:${c}">${num}</div><div class="offer-title">${title}</div><div class="offer-body">${body}</div>`;oc.appendChild(card);
+  });
+  s4b.appendChild(oc);s4.appendChild(s4b);w.appendChild(s4);
+
+  // OPENERS
+  const s5=d('g-sec');s5.innerHTML='<div class="g-sec-head"><div class="g-sec-num" style="color:var(--purp)">05</div><div><div class="g-sec-title">Opener Scripts by Account Type</div><div class="g-sec-sub">Use verbatim or adapt — the logic in each is intentional</div></div></div>';
+  const s5b=d('g-sec-body');
+  [
+    ['SCI / Dignity Memorial Locations (McComb, Sloan, Elzey)','Phil Lady, SERVPRO Team Miller. We service commercial facilities across Fort Wayne — we specifically wanted to reach out to Dignity Memorial because you operate multiple locations in our territory. Can you connect me with whoever handles facilities and vendor relationships at the regional level?'],
+    ['Independent Owners (FairHaven, Midwest, Community Homes)','Phil Lady, SERVPRO Team Miller — Fort Wayne neighbors. We work specifically with funeral homes because of the zero-tolerance environment you operate in. An event here isn\'t just a building problem — it\'s a family problem. I\'d love 15 minutes to walk the facility and put together a no-cost Emergency Response Plan. Can we schedule that?'],
+    ['Sheets & Childs — ask for Miles by name','Hi, is Miles available? Phil Lady with SERVPRO Team Miller — I got your name from Craig Traxler at Traxler-Parker. We work with funeral homes along the Lima Road corridor. Can I stop by and walk the Huntertown facility? 15 minutes, no pitch.'],
+    ['Divine Mercy / Diocesan Contacts','Phil Lady, SERVPRO Team Miller. We serve the Diocese of Fort Wayne-South Bend on the restoration side and wanted to make sure Divine Mercy\'s facilities team knows us by name before an event happens. I\'d love to walk both your Fort Wayne and Cedar Canyons locations. Would the Diocesan Facilities Director be the right contact for that?'],
+  ].forEach(([who,txt])=>{
+    const oc2=d('opener-card');oc2.innerHTML=`<div class="opener-lbl">OPENER SCRIPT</div><div class="opener-who">${who}</div><div class="opener-txt">"${txt}"</div>`;s5b.appendChild(oc2);
+  });
+  s5.appendChild(s5b);w.appendChild(s5);
+  return w;
+}
+
+function render(){
+  const panel=document.getElementById('panel');panel.innerHTML='';
+  const searchBar=document.getElementById('mob-search-bar');
+  const filters=document.getElementById('mob-filters');
+  const isHomes=S.tab==='homes';
+  if(searchBar)searchBar.style.display=isHomes&&!S.sel?'flex':'none';
+  if(filters)filters.style.display=isHomes&&!S.sel?'flex':'none';
+  let view;
+  if(S.tab==='strategy')view=renderStrategy();
+  else if(S.tab==='pitch')view=renderPitch();
+  else if(S.tab==='homes')view=S.sel?renderDetail(S.sel):renderHomes();
+  else if(S.tab==='doors')view=renderDoors();
+  else view=renderRoutes();
+  panel.appendChild(view);
+}
+
+function updateAll(){
+  // bottom nav
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===S.tab));
+  // desktop sidebar tabs
+  document.querySelectorAll('.sb-btn[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===S.tab));
+  // priority filters
+  document.querySelectorAll('.filt-pri').forEach(b=>{
+    const on=b.dataset.pri===S.pri;b.classList.toggle('active',on);
+    const pm=PRI[b.dataset.pri];
+    b.style.cssText=on&&pm?`background:${pm.c}22;color:${pm.c};border-color:${pm.c}55`:'';
+  });
+  document.querySelectorAll('.filt-cor').forEach(b=>{
+    const ci=parseInt(b.dataset.cor),on=ci===S.cor;b.classList.toggle('active',on);
+    const c=ci?COR[ci].c:G;
+    b.style.cssText=on?`background:${c}22;color:${c};border-color:${c}55`:'';
+  });
+  // mobile chips
+  document.querySelectorAll('.chip[data-pri]').forEach(b=>{
+    const pm=PRI[b.dataset.pri];const on=b.dataset.pri===S.pri;
+    b.classList.toggle('on',on);
+    if(on&&pm)b.style.cssText=`background:${pm.c};color:#fff;border-color:transparent`;
+    else if(on)b.style.cssText=`background:${G};color:#fff;border-color:transparent`;
+    else b.style.cssText='';
+  });
+  document.querySelectorAll('.chip[data-cor]').forEach(b=>{
+    const ci=parseInt(b.dataset.cor),on=ci===S.cor;
+    b.classList.toggle('on',on);
+    const c=ci?COR[ci].c:G;
+    b.style.cssText=on?`background:${c};color:#fff;border-color:transparent`:'';
+  });
+}
+
+// Bottom nav
+document.querySelectorAll('.nav-btn[data-tab]').forEach(b=>b.onclick=()=>{S.tab=b.dataset.tab;S.sel=null;updateAll();render();document.getElementById('panel-scroll').scrollTop=0;});
+// Desktop sidebar tabs
+document.querySelectorAll('.sb-btn[data-tab]').forEach(b=>b.onclick=()=>{S.tab=b.dataset.tab;S.sel=null;updateAll();render();document.getElementById('panel-scroll').scrollTop=0;});
+// Desktop priority/corridor filters
+document.querySelectorAll('.filt-pri').forEach(b=>b.onclick=()=>{S.pri=b.dataset.pri;if(S.sel)S.sel=null;updateAll();render();});
+document.querySelectorAll('.filt-cor').forEach(b=>b.onclick=()=>{S.cor=parseInt(b.dataset.cor);if(S.sel)S.sel=null;updateAll();render();});
+// Desktop search
+const sbSearch=document.getElementById('sb-search');if(sbSearch)sbSearch.oninput=ev=>{S.q=ev.target.value;if(S.sel)S.sel=null;render();};
+// Mobile search
+const mobSearch=document.getElementById('mob-search');if(mobSearch)mobSearch.oninput=ev=>{S.q=ev.target.value;if(S.sel)S.sel=null;render();};
+// Mobile priority chips
+document.querySelectorAll('.chip[data-pri]').forEach(b=>b.onclick=()=>{S.pri=b.dataset.pri;if(S.sel)S.sel=null;updateAll();render();});
+document.querySelectorAll('.chip[data-cor]').forEach(b=>b.onclick=()=>{S.cor=parseInt(b.dataset.cor);if(S.sel)S.sel=null;updateAll();render();});
+
+updateAll();render();
+</script>
+</body>
+</html>
